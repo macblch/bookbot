@@ -1,4 +1,4 @@
-from stats import get_num_of_chars, get_num_of_words
+from stats import get_num_of_chars, get_num_of_words, sort_chars_dict
 
 
 def get_book_text(path: str) -> str:
@@ -7,13 +7,25 @@ def get_book_text(path: str) -> str:
         return file_conents
 
 
+def print_book_report(path: str, word_count: int, char_dict_list: list):
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {path[2:]}...")
+    print("----------- Word Count ----------")
+    print(f"Found {word_count} total words")
+    print("--------- Character Count -------")
+    for entry in char_dict_list:
+        print(f"{entry['char']}: {entry['num']}")
+    print("============= END ===============")
+
+
 def main():
-    file_contents = get_book_text("./books/frankenstein.txt")
+    path = "./books/frankenstein.txt"
+    file_contents = get_book_text(path)
     num_words = get_num_of_words(file_contents)
     chars_dict = get_num_of_chars(file_contents)
 
-    print(f"Found {num_words} total words")
-    print(chars_dict)
+    sorted = sort_chars_dict(chars_dict)
+    print_book_report(path=path, word_count=num_words, char_dict_list=sorted)
 
 
 if __name__ == "__main__":
